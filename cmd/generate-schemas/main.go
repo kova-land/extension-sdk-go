@@ -1,9 +1,15 @@
 // Command generate-schemas reflects on the protocol package types and writes
 // JSON Schema files to the schemas/ directory.
+//
+// Flags:
+//
+//	--check  Validate that committed schemas are up-to-date (exit 1 on drift).
 package main
 
 import (
+	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -16,6 +22,9 @@ import (
 )
 
 func main() {
+	check := flag.Bool("check", false, "validate schemas are up-to-date without writing")
+	flag.Parse()
+
 	types := []any{
 		protocol.Request{},
 		protocol.Response{},
@@ -84,7 +93,10 @@ func main() {
 		IgnoreInvalidTypes: true,
 	}
 
-	var errors []string
+	var (
+		errors []string
+		drifts []string
+	)
 
 	for _, instance := range types {
 		t := reflect.TypeOf(instance)
@@ -108,6 +120,19 @@ func main() {
 		data = append(data, '\n')
 
 		outPath := filepath.Join(outDir, filename)
+
+		if *check {
+			existing, err := os.ReadFile(outPath)
+			if err != nil {
+				drifts = append(drifts, fmt.Sprintf("%s: %v", filename, err))
+				continue
+			}
+			if !bytes.Equal(data, existing) {
+				drifts = append(drifts, filename)
+			}
+			continue
+		}
+
 		if err := os.WriteFile(outPath, data, 0o644); err != nil {
 			errors = append(errors, fmt.Sprintf("%s: write: %v", filename, err))
 			continue
@@ -120,6 +145,18 @@ func main() {
 			log.Printf("ERROR: %s", e)
 		}
 		os.Exit(1)
+	}
+
+	if *check {
+		if len(drifts) > 0 {
+			fmt.Fprintf(os.Stderr, "schemas are out of date — run 'make generate' and commit:\n")
+			for _, d := range drifts {
+				fmt.Fprintf(os.Stderr, "  %s\n", d)
+			}
+			os.Exit(1)
+		}
+		fmt.Printf("All %d schemas are up-to-date\n", len(types))
+		return
 	}
 
 	fmt.Printf("\nGenerated %d schemas in %s/\n", len(types), outDir)

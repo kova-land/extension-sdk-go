@@ -133,11 +133,14 @@ func TestSchemasMatchTypes(t *testing.T) {
 			if err != nil {
 				t.Fatalf("ForType(%s): %v", name, err)
 			}
+			freshSchema.Title = name
 
-			freshData, err := json.Marshal(freshSchema)
+			// Generate the same output the generator would write.
+			freshData, err := json.MarshalIndent(freshSchema, "", "  ")
 			if err != nil {
 				t.Fatalf("marshal fresh schema: %v", err)
 			}
+			freshData = append(freshData, '\n')
 
 			filename := filepath.Join(".", name+".json")
 			fileData, err := os.ReadFile(filename)
@@ -145,26 +148,8 @@ func TestSchemasMatchTypes(t *testing.T) {
 				t.Fatalf("read schema file: %v", err)
 			}
 
-			var freshMap, fileMap map[string]any
-			if err := json.Unmarshal(freshData, &freshMap); err != nil {
-				t.Fatalf("unmarshal fresh: %v", err)
-			}
-			if err := json.Unmarshal(fileData, &fileMap); err != nil {
-				t.Fatalf("unmarshal file: %v", err)
-			}
-
-			freshProps := extractPropertyNames(freshMap)
-			fileProps := extractPropertyNames(fileMap)
-
-			for _, p := range freshProps {
-				if !contains(fileProps, p) {
-					t.Errorf("property %q in Go type but missing from schema file", p)
-				}
-			}
-			for _, p := range fileProps {
-				if !contains(freshProps, p) {
-					t.Errorf("property %q in schema file but missing from Go type", p)
-				}
+			if string(freshData) != string(fileData) {
+				t.Errorf("schema file is out of date — run 'make generate' and commit")
 			}
 		})
 	}
@@ -187,29 +172,4 @@ func TestNoExtraSchemaFiles(t *testing.T) {
 			t.Errorf("schema file %s has no corresponding protocol type", entry.Name())
 		}
 	}
-}
-
-func extractPropertyNames(schema map[string]any) []string {
-	props, ok := schema["properties"]
-	if !ok {
-		return nil
-	}
-	propsMap, ok := props.(map[string]any)
-	if !ok {
-		return nil
-	}
-	names := make([]string, 0, len(propsMap))
-	for k := range propsMap {
-		names = append(names, k)
-	}
-	return names
-}
-
-func contains(ss []string, s string) bool {
-	for _, v := range ss {
-		if v == s {
-			return true
-		}
-	}
-	return false
 }

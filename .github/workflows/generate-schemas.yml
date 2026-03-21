@@ -1,0 +1,51 @@
+name: Generate Schemas
+
+run-name: "Generate Schemas: ${{ github.ref_name }}"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'protocol/**'
+      - 'cmd/generate-schemas/**'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    name: Update Schemas
+    runs-on: ubuntu-latest
+    # Skip commits from this workflow to avoid infinite loops
+    if: "!startsWith(github.event.head_commit.message, 'chore: update generated schemas')"
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Generate schemas
+        run: make generate
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet schemas/; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Schemas are up-to-date"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Schema changes detected:"
+            git diff --stat schemas/
+          fi
+
+      - name: Commit updated schemas
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add schemas/
+          git commit -m "chore: update generated schemas"
+          git push
