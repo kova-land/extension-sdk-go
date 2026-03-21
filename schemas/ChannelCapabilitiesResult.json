@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "supports_text": {
+          "type": "boolean"
+        },
+        "supports_images": {
+          "type": "boolean"
+        },
+        "supports_audio": {
+          "type": "boolean"
+        },
+        "supports_files": {
+          "type": "boolean"
+        },
+        "supports_voice": {
+          "type": "boolean"
+        },
+        "supports_reactions": {
+          "type": "boolean"
+        },
+        "supports_buttons": {
+          "type": "boolean"
+        },
+        "supports_modals": {
+          "type": "boolean"
+        },
+        "supports_typing": {
+          "type": "boolean"
+        },
+        "max_message_len": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "supports_text"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "title": "ChannelCapabilitiesResult",
+  "required": [
+    "capabilities"
+  ],
+  "additionalProperties": false
+}

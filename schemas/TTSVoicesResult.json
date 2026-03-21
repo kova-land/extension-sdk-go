@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "voices": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "title": "TTSVoicesResult",
+  "required": [
+    "voices"
+  ],
+  "additionalProperties": false
+}

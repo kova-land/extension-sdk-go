@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "selected_option": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "timed_out": {
+      "type": "boolean"
+    },
+    "dismissed": {
+      "type": "boolean"
+    }
+  },
+  "title": "PromptUserResult",
+  "additionalProperties": false
+}

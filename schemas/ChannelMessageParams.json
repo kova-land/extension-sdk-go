@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "properties": {
+    "channel_id": {
+      "type": "string"
+    },
+    "message_id": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "images": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          },
+          "mime_type": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "mime_type"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "title": "ChannelMessageParams",
+  "required": [
+    "channel_id",
+    "text",
+    "platform"
+  ],
+  "additionalProperties": false
+}

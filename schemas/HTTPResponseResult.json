@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "status_code": {
+      "type": "integer"
+    },
+    "headers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "body": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      }
+    }
+  },
+  "title": "HTTPResponseResult",
+  "required": [
+    "status_code"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "ok": {
+      "type": "boolean"
+    }
+  },
+  "title": "ServiceStopResult",
+  "required": [
+    "ok"
+  ],
+  "additionalProperties": false
+}

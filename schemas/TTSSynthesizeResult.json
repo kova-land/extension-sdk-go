@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "audio_base64": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string"
+    }
+  },
+  "title": "TTSSynthesizeResult",
+  "required": [
+    "audio_base64",
+    "format",
+    "content_type"
+  ],
+  "additionalProperties": false
+}

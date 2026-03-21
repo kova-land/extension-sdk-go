@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "channel_id": {
+      "type": "string"
+    }
+  },
+  "title": "ChannelTypingParams",
+  "required": [
+    "channel_id"
+  ],
+  "additionalProperties": false
+}

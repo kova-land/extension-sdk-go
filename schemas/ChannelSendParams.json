@@ -1,0 +1,151 @@
+{
+  "type": "object",
+  "properties": {
+    "channel_id": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "images": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          },
+          "mime_type": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "mime_type",
+          "filename"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "audio": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          },
+          "mime_type": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "mime_type",
+          "filename"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "files": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          },
+          "mime_type": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "mime_type",
+          "filename"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "components": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "array"
+        ],
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "custom_id": {
+              "type": "string"
+            },
+            "style": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "label",
+            "custom_id",
+            "style"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "title": "ChannelSendParams",
+  "required": [
+    "channel_id",
+    "text"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "event": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "title": "HookEventParams",
+  "required": [
+    "event",
+    "data"
+  ],
+  "additionalProperties": false
+}

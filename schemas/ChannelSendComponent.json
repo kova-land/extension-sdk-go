@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string"
+    },
+    "custom_id": {
+      "type": "string"
+    },
+    "style": {
+      "type": "integer"
+    }
+  },
+  "title": "ChannelSendComponent",
+  "required": [
+    "label",
+    "custom_id",
+    "style"
+  ],
+  "additionalProperties": false
+}

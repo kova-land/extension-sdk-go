@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "style": {
+      "type": "string"
+    }
+  },
+  "title": "PromptOption",
+  "required": [
+    "label",
+    "value"
+  ],
+  "additionalProperties": false
+}

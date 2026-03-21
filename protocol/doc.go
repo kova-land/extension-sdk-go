@@ -18,4 +18,6 @@
 //   - http.go: HTTP route param/result types
 //   - tts.go: TTS provider param/result types
 //   - log.go: Log notification param types
+//
+//go:generate go run ../cmd/generate-schemas/
 package protocol
