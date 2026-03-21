@@ -8,7 +8,7 @@ Go SDK for building [Kova](https://github.com/kova-land/kova) extensions. Provid
 go get github.com/kova-land/extension-sdk-go
 ```
 
-**Zero external dependencies** -- the SDK uses only the Go standard library.
+Core packages (`protocol`, `jsonrpc`, `extension`, `harness`) have zero external dependencies and use only the Go standard library. The `schemas` package uses `github.com/google/jsonschema-go` for schema generation.
 
 ## Package Overview
 
@@ -98,6 +98,10 @@ Bridges a text-to-speech API (OpenAI TTS, Piper, etc.) to kova. Implement `exten
 ```go
 extension.RunTTS(&myTTS{})
 ```
+
+### Multi-Type Limitation
+
+Each `Run*` function handles a single registration type. Extensions that register multiple types (e.g., both tools and hooks) are not yet supported by the SDK — use the low-level `jsonrpc.Transport` directly for multi-type extensions.
 
 ## Testing Extensions
 
