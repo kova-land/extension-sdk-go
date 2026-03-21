@@ -3,6 +3,7 @@ package extension
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -58,10 +59,9 @@ func (e *Emitter) EmitStreamError(params protocol.StreamErrorParams) error {
 type Option func(*runConfig)
 
 type runConfig struct {
-	stdin     io.Reader
-	stdout    io.Writer
-	bufSize   int
-	noSignals bool // for testing
+	stdin   io.Reader
+	stdout  io.Writer
+	bufSize int
 }
 
 // WithStdin overrides the default stdin reader. Useful for testing.
@@ -79,11 +79,6 @@ func WithStdout(w io.Writer) Option {
 // jsonrpc.LargeBufferSize (16 MB).
 func WithBufferSize(size int) Option {
 	return func(c *runConfig) { c.bufSize = size }
-}
-
-// withNoSignals disables OS signal handling. Used in tests.
-func withNoSignals() Option {
-	return func(c *runConfig) { c.noSignals = true }
 }
 
 func defaultConfig() *runConfig {
@@ -113,7 +108,7 @@ func (d *dispatcher) run(ctx context.Context) error {
 	for {
 		req, err := d.transport.ReadRequest()
 		if err != nil {
-			if err == io.EOF {
+			if errors.Is(err, io.EOF) {
 				return nil
 			}
 			// Send parse error if we can identify the request.
@@ -172,7 +167,7 @@ func (d *dispatcher) handleShutdown(req *protocol.Request) {
 
 // startRun creates a context with signal handling, builds the transport and
 // emitter, and returns them along with the cancellable context.
-func startRun(opts []Option) (context.Context, context.CancelFunc, *runConfig, *jsonrpc.Transport, *Emitter) {
+func startRun(opts []Option) (context.Context, context.CancelFunc, *jsonrpc.Transport, *Emitter) {
 	cfg := defaultConfig()
 	for _, opt := range opts {
 		opt(cfg)
@@ -181,13 +176,7 @@ func startRun(opts []Option) (context.Context, context.CancelFunc, *runConfig, *
 	transport := jsonrpc.NewTransport(cfg.stdin, cfg.stdout, cfg.bufSize)
 	emitter := &Emitter{transport: transport}
 
-	var ctx context.Context
-	var cancel context.CancelFunc
-	if cfg.noSignals {
-		ctx, cancel = context.WithCancel(context.Background())
-	} else {
-		ctx, cancel = signal.NotifyContext(context.Background(), syscall.SIGTERM, syscall.SIGINT)
-	}
+	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGTERM, syscall.SIGINT)
 
-	return ctx, cancel, cfg, transport, emitter
+	return ctx, cancel, transport, emitter
 }

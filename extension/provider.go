@@ -45,7 +45,7 @@ func RunProvider(ext ProviderExtension, opts ...Option) error {
 	// Default to large buffer for provider extensions.
 	opts = append([]Option{WithBufferSize(jsonrpc.LargeBufferSize)}, opts...)
 
-	ctx, cancel, _, transport, emitter := startRun(opts)
+	ctx, cancel, transport, emitter := startRun(opts)
 	defer cancel()
 
 	d := &dispatcher{

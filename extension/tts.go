@@ -34,7 +34,7 @@ type TTSExtension interface {
 // the provided implementation. This function blocks until the host closes
 // stdin, sends "shutdown", or an OS signal is received.
 func RunTTS(ext TTSExtension, opts ...Option) error {
-	ctx, cancel, _, transport, emitter := startRun(opts)
+	ctx, cancel, transport, emitter := startRun(opts)
 	defer cancel()
 
 	d := &dispatcher{

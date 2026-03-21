@@ -3,6 +3,7 @@ package jsonrpc_test
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -132,7 +133,7 @@ func TestReadRequest_EOF(t *testing.T) {
 	tr := jsonrpc.NewTransport(strings.NewReader(""), io.Discard, jsonrpc.DefaultBufferSize)
 
 	_, err := tr.ReadRequest()
-	if err != io.EOF {
+	if !errors.Is(err, io.EOF) {
 		t.Errorf("err = %v, want io.EOF", err)
 	}
 }

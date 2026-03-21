@@ -32,7 +32,7 @@ type ToolExtension interface {
 // provided implementation. This function blocks until the host closes stdin,
 // sends "shutdown", or an OS signal is received.
 func RunTool(ext ToolExtension, opts ...Option) error {
-	ctx, cancel, _, transport, emitter := startRun(opts)
+	ctx, cancel, transport, emitter := startRun(opts)
 	defer cancel()
 
 	d := &dispatcher{
