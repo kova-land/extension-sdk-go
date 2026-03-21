@@ -4,7 +4,7 @@
 
 name: Release
 
-run-name: "${{ github.event_name == 'workflow_dispatch' && format('Release v{0}', inputs.version) || format('Auto-release: {0}', github.event.head_commit.message) }}"
+run-name: "${{ github.event_name == 'workflow_dispatch' && format('Release v{0}', inputs.version) || 'Auto-release' }}"
 
 on:
   push:
