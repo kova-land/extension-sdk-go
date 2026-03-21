@@ -28,6 +28,16 @@ type ChannelExtension interface {
 	// should treat this as best-effort; errors are non-fatal.
 	HandleChannelTyping(ctx context.Context, params protocol.ChannelTypingParams) error
 
+	// HandleChannelReactionAdd adds an emoji reaction to a message. Extensions
+	// should treat this as best-effort; errors are non-fatal. Extensions SHOULD NOT
+	// return an error if the platform does not support reactions.
+	HandleChannelReactionAdd(ctx context.Context, params protocol.ChannelReactionAddParams) error
+
+	// HandleChannelReactionRemove removes an emoji reaction from a message. Extensions
+	// should treat this as best-effort; errors are non-fatal. Extensions SHOULD NOT
+	// return an error if the platform does not support reactions.
+	HandleChannelReactionRemove(ctx context.Context, params protocol.ChannelReactionRemoveParams) error
+
 	// HandlePromptUser presents an interactive prompt to a user and returns
 	// their response. The extension renders the prompt using platform-native
 	// UI (buttons, modals, numbered menus, etc.) and blocks until the user
@@ -84,6 +94,26 @@ func dispatchChannel(ctx context.Context, t *jsonrpc.Transport, ext ChannelExten
 			return t.SendError(req.ID, protocol.ErrCodeInvalidParams, fmt.Sprintf("invalid params: %v", err))
 		}
 		if err := ext.HandleChannelTyping(ctx, params); err != nil {
+			return t.SendError(req.ID, protocol.ErrCodeInternal, err.Error())
+		}
+		return t.SendResponse(req.ID, struct{}{})
+
+	case protocol.MethodChannelReactionAdd:
+		var params protocol.ChannelReactionAddParams
+		if err := json.Unmarshal(req.Params, &params); err != nil {
+			return t.SendError(req.ID, protocol.ErrCodeInvalidParams, fmt.Sprintf("invalid params: %v", err))
+		}
+		if err := ext.HandleChannelReactionAdd(ctx, params); err != nil {
+			return t.SendError(req.ID, protocol.ErrCodeInternal, err.Error())
+		}
+		return t.SendResponse(req.ID, struct{}{})
+
+	case protocol.MethodChannelReactionRemove:
+		var params protocol.ChannelReactionRemoveParams
+		if err := json.Unmarshal(req.Params, &params); err != nil {
+			return t.SendError(req.ID, protocol.ErrCodeInvalidParams, fmt.Sprintf("invalid params: %v", err))
+		}
+		if err := ext.HandleChannelReactionRemove(ctx, params); err != nil {
 			return t.SendError(req.ID, protocol.ErrCodeInternal, err.Error())
 		}
 		return t.SendResponse(req.ID, struct{}{})

@@ -29,6 +29,14 @@ func (f *fakeChannelExt) HandleChannelTyping(_ context.Context, _ protocol.Chann
 	return nil
 }
 
+func (f *fakeChannelExt) HandleChannelReactionAdd(_ context.Context, _ protocol.ChannelReactionAddParams) error {
+	return nil
+}
+
+func (f *fakeChannelExt) HandleChannelReactionRemove(_ context.Context, _ protocol.ChannelReactionRemoveParams) error {
+	return nil
+}
+
 func (f *fakeChannelExt) HandlePromptUser(_ context.Context, _ protocol.PromptUserParams) (*protocol.PromptUserResult, error) {
 	if f.promptResult != nil {
 		return f.promptResult, nil
@@ -184,6 +192,14 @@ func (f *emittingChannelExt) HandleChannelSend(_ context.Context, params protoco
 }
 
 func (f *emittingChannelExt) HandleChannelTyping(_ context.Context, _ protocol.ChannelTypingParams) error {
+	return nil
+}
+
+func (f *emittingChannelExt) HandleChannelReactionAdd(_ context.Context, _ protocol.ChannelReactionAddParams) error {
+	return nil
+}
+
+func (f *emittingChannelExt) HandleChannelReactionRemove(_ context.Context, _ protocol.ChannelReactionRemoveParams) error {
 	return nil
 }
 

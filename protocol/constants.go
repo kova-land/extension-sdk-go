@@ -30,10 +30,12 @@ const (
 
 // Method names for kova -> extension requests (channels).
 const (
-	MethodChannelSend         = "channel_send"
-	MethodChannelTyping       = "channel_typing"
-	MethodPromptUser          = "prompt_user"
-	MethodChannelCapabilities = "channel_capabilities"
+	MethodChannelSend           = "channel_send"
+	MethodChannelTyping         = "channel_typing"
+	MethodChannelReactionAdd    = "channel_reaction_add"
+	MethodChannelReactionRemove = "channel_reaction_remove"
+	MethodPromptUser            = "prompt_user"
+	MethodChannelCapabilities   = "channel_capabilities"
 )
 
 // Method names for kova -> extension requests (providers).

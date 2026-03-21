@@ -7,6 +7,9 @@ package protocol
 type ChannelMessageParams struct {
 	// ChannelID is the platform-specific channel or conversation identifier.
 	ChannelID string `json:"channel_id"`
+	// MessageID is the platform-specific identifier of the incoming message.
+	// Used by core to reference the message for reactions (ack/error indicators).
+	MessageID string `json:"message_id,omitempty"`
 	// UserID is the platform-specific identifier of the message author (may be empty).
 	UserID string `json:"user_id,omitempty"`
 	// Username is the human-readable display name of the message author (may be empty).
@@ -72,6 +75,28 @@ type ChannelSendComponent struct {
 type ChannelTypingParams struct {
 	// ChannelID identifies the target channel on the extension's platform.
 	ChannelID string `json:"channel_id"`
+}
+
+// ChannelReactionAddParams is sent by kova to add an emoji reaction to a message.
+// Extensions should treat this as best-effort.
+type ChannelReactionAddParams struct {
+	// ChannelID identifies the target channel on the extension's platform.
+	ChannelID string `json:"channel_id"`
+	// MessageID identifies the message to react to.
+	MessageID string `json:"message_id"`
+	// Emoji is the reaction emoji (e.g. "👀", "❌").
+	Emoji string `json:"emoji"`
+}
+
+// ChannelReactionRemoveParams is sent by kova to remove an emoji reaction from a message.
+// Extensions should treat this as best-effort.
+type ChannelReactionRemoveParams struct {
+	// ChannelID identifies the target channel on the extension's platform.
+	ChannelID string `json:"channel_id"`
+	// MessageID identifies the message to remove the reaction from.
+	MessageID string `json:"message_id"`
+	// Emoji is the reaction emoji to remove.
+	Emoji string `json:"emoji"`
 }
 
 // PromptOption represents a single selectable option in a prompt_user request.
