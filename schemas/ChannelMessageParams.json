@@ -19,6 +19,12 @@
     "platform": {
       "type": "string"
     },
+    "is_slash_command": {
+      "type": "boolean"
+    },
+    "interaction_id": {
+      "type": "string"
+    },
     "images": {
       "type": [
         "null",
