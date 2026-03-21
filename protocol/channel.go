@@ -18,7 +18,22 @@ type ChannelMessageParams struct {
 	Text string `json:"text"`
 	// Platform is the platform name reported by the extension (e.g. "discord", "slack").
 	Platform string `json:"platform"`
+	// IsSlashCommand indicates this message originated from a platform slash command
+	// (e.g. Discord interaction) rather than a regular chat message. When true, core
+	// handles the command directly (tools, agents, skills, clear, etc.) without LLM
+	// processing and sends the response back via channel_send so the extension can
+	// route it through the original interaction.
+	IsSlashCommand bool `json:"is_slash_command,omitempty"`
+	// InteractionID is the platform-specific interaction identifier (e.g. Discord
+	// interaction ID). Extensions set this when IsSlashCommand is true so that core
+	// can echo it back in the channel_send response, allowing the extension to match
+	// the response to the correct pending interaction when multiple slash commands
+	// are in flight in the same channel.
+	InteractionID string `json:"interaction_id,omitempty"`
+
 	// Images holds inbound image attachments (base64-encoded in JSON via []byte).
+	// Extensions that support receiving images should populate this from their
+	// platform's attachment mechanism.
 	Images []ChannelMessageImage `json:"images,omitempty"`
 }
 
@@ -47,8 +62,19 @@ type ChannelSendParams struct {
 	Audio []ChannelSendAttachment `json:"audio,omitempty"`
 	// Files holds file attachments.
 	Files []ChannelSendAttachment `json:"files,omitempty"`
+
 	// Components holds rows of interactive buttons (platform-dependent support).
 	Components [][]ChannelSendComponent `json:"components,omitempty"`
+
+	// IsSlashCommandResponse marks this response as the result of a slash command.
+	// When true, the extension should route the response through the original
+	// platform interaction (e.g. Discord ephemeral follow-up) instead of sending
+	// a regular channel message.
+	IsSlashCommandResponse bool `json:"is_slash_command_response,omitempty"`
+	// InteractionID is echoed back from the inbound ChannelMessageParams.InteractionID.
+	// Extensions use this to match the response to the correct pending interaction
+	// when multiple slash commands are in flight in the same channel.
+	InteractionID string `json:"interaction_id,omitempty"`
 }
 
 // ChannelSendAttachment carries a file attachment over the bridge protocol.
