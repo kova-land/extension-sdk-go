@@ -6,6 +6,11 @@ type InitializeParams struct {
 	Config map[string]any `json:"config"`
 	// ExtensionRoot is the absolute path to the extension's directory.
 	ExtensionRoot string `json:"extension_root"`
+	// AgentName is the configured agent name (e.g. "kova"). Extensions can use
+	// this for user-facing messages like boot announcements.
+	AgentName string `json:"agent_name,omitempty"`
+	// AgentVersion is the build version string (e.g. "0.14.0").
+	AgentVersion string `json:"agent_version,omitempty"`
 }
 
 // InitializeResult is the response payload for the "initialize" request.
