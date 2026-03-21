@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "level": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "title": "LogParams",
+  "required": [
+    "level",
+    "message"
+  ],
+  "additionalProperties": false
+}

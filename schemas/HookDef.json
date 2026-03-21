@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "events": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "matcher": {
+      "type": "string"
+    }
+  },
+  "title": "HookDef",
+  "required": [
+    "events"
+  ],
+  "additionalProperties": false
+}

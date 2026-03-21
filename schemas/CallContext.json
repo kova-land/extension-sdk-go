@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "agent_id": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    },
+    "channel_id": {
+      "type": "string"
+    }
+  },
+  "title": "CallContext",
+  "additionalProperties": false
+}

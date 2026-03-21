@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "properties": {
+    "channel_id": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "options": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "style": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "allow_text": {
+      "type": "boolean"
+    },
+    "text_placeholder": {
+      "type": "string"
+    },
+    "timeout_seconds": {
+      "type": "integer"
+    }
+  },
+  "title": "PromptUserParams",
+  "required": [
+    "channel_id",
+    "message"
+  ],
+  "additionalProperties": false
+}

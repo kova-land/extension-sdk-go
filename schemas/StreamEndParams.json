@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "stream_id": {
+      "type": "string"
+    },
+    "total_chunks": {
+      "type": "integer"
+    }
+  },
+  "title": "StreamEndParams",
+  "required": [
+    "stream_id",
+    "total_chunks"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "title": "ServiceDef",
+  "required": [
+    "id"
+  ],
+  "additionalProperties": false
+}

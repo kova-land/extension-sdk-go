@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string"
+    },
+    "methods": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "title": "HTTPRouteDef",
+  "required": [
+    "path",
+    "methods"
+  ],
+  "additionalProperties": false
+}

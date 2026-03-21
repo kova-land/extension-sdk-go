@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "voice": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string"
+    },
+    "speed": {
+      "type": "number"
+    }
+  },
+  "title": "TTSSynthesizeParams",
+  "required": [
+    "text",
+    "voice"
+  ],
+  "additionalProperties": false
+}

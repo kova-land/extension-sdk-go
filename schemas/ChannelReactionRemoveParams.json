@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "channel_id": {
+      "type": "string"
+    },
+    "message_id": {
+      "type": "string"
+    },
+    "emoji": {
+      "type": "string"
+    }
+  },
+  "title": "ChannelReactionRemoveParams",
+  "required": [
+    "channel_id",
+    "message_id",
+    "emoji"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "jsonrpc": {
+      "type": "string"
+    },
+    "method": {
+      "type": "string"
+    },
+    "params": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      }
+    }
+  },
+  "title": "Notification",
+  "required": [
+    "jsonrpc",
+    "method"
+  ],
+  "additionalProperties": false
+}

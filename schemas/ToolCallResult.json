@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "output": {
+      "type": "string"
+    },
+    "is_error": {
+      "type": "boolean"
+    }
+  },
+  "title": "ToolCallResult",
+  "required": [
+    "output",
+    "is_error"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "method": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "headers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "body": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      }
+    }
+  },
+  "title": "HTTPRequestParams",
+  "required": [
+    "method",
+    "path",
+    "headers"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "title": "ServiceStartParams",
+  "required": [
+    "id"
+  ],
+  "additionalProperties": false
+}

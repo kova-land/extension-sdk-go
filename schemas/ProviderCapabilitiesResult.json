@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "properties": {
+    "models": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "supports_streaming": {
+      "type": "boolean"
+    },
+    "supports_vision": {
+      "type": "boolean"
+    },
+    "supports_audio_output": {
+      "type": "boolean"
+    },
+    "max_images": {
+      "type": "integer"
+    },
+    "max_tokens": {
+      "type": "integer"
+    },
+    "context_window": {
+      "type": "integer"
+    }
+  },
+  "title": "ProviderCapabilitiesResult",
+  "required": [
+    "supports_streaming"
+  ],
+  "additionalProperties": false
+}

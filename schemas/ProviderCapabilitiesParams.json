@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string"
+    }
+  },
+  "title": "ProviderCapabilitiesParams",
+  "additionalProperties": false
+}

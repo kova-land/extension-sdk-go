@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "channel_id": {
+      "type": "string"
+    }
+  },
+  "title": "ChannelCapabilitiesParams",
+  "additionalProperties": false
+}

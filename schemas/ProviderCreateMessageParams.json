@@ -1,0 +1,141 @@
+{
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string"
+    },
+    "max_tokens": {
+      "type": "integer"
+    },
+    "system_prompt": {
+      "type": "string"
+    },
+    "messages": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "content": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "input": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255
+                  }
+                },
+                "output": {
+                  "type": "string"
+                },
+                "is_error": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "role",
+          "content"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "tools": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "input_schema": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          }
+        },
+        "required": [
+          "name",
+          "input_schema"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "context": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "agent_id": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stream_id": {
+      "type": "string"
+    }
+  },
+  "title": "ProviderCreateMessageParams",
+  "required": [
+    "model",
+    "max_tokens",
+    "messages"
+  ],
+  "additionalProperties": false
+}

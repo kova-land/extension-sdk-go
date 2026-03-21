@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "stream_id": {
+      "type": "string"
+    },
+    "code": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "title": "StreamErrorParams",
+  "required": [
+    "stream_id",
+    "code",
+    "message"
+  ],
+  "additionalProperties": false
+}

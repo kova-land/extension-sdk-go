@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "extension_root": {
+      "type": "string"
+    },
+    "agent_name": {
+      "type": "string"
+    },
+    "agent_version": {
+      "type": "string"
+    }
+  },
+  "title": "InitializeParams",
+  "required": [
+    "config",
+    "extension_root"
+  ],
+  "additionalProperties": false
+}
