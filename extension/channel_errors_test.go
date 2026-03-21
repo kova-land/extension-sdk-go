@@ -177,6 +177,24 @@ func TestRunChannel_CapabilitiesError(t *testing.T) {
 	fk.Shutdown()
 }
 
+func TestRunChannel_InitializeError(t *testing.T) {
+	ext := &errorChannelExt{initErr: errors.New("init failed")}
+	fk := runChannelExt(t, ext)
+
+	rpcErr := fk.CallExpectError(protocol.MethodInitialize, protocol.InitializeParams{
+		Config:        map[string]any{},
+		ExtensionRoot: t.TempDir(),
+	})
+	if rpcErr.Code != protocol.ErrCodeNotReady {
+		t.Errorf("code = %d, want %d (ErrCodeNotReady)", rpcErr.Code, protocol.ErrCodeNotReady)
+	}
+	if rpcErr.Message != "init failed" {
+		t.Errorf("message = %q, want %q", rpcErr.Message, "init failed")
+	}
+
+	fk.Shutdown()
+}
+
 func TestRunChannel_UnknownMethod(t *testing.T) {
 	ext := &fakeChannelExt{}
 	fk := runChannelExt(t, ext)
