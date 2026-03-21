@@ -87,7 +87,7 @@ func (fk *FakeKova) Initialize(config map[string]any) *protocol.Registrations {
 // retrieval via ReceivedNotifications. Fails the test on error responses.
 func (fk *FakeKova) Call(method string, params any) json.RawMessage {
 	fk.t.Helper()
-	return fk.callInternal(method, params, false)
+	return fk.callInternal(method, params)
 }
 
 // CallExpectError sends a JSON-RPC request and expects an error response.
@@ -134,7 +134,7 @@ func (fk *FakeKova) ReceivedNotifications(method string) []json.RawMessage {
 	return result
 }
 
-func (fk *FakeKova) callInternal(method string, params any, _ bool) json.RawMessage {
+func (fk *FakeKova) callInternal(method string, params any) json.RawMessage {
 	fk.t.Helper()
 
 	id := fk.nextID.Add(1)
