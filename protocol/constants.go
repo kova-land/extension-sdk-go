@@ -90,4 +90,7 @@ const (
 	ErrCodeModelNotFound  = -32012
 	ErrCodeTTSFailed      = -32013
 	ErrCodeVoiceNotFound  = -32014
+	ErrCodeHookFailed     = -32020
+	ErrCodeHTTPFailed     = -32021
+	ErrCodeServiceFailed  = -32022
 )
