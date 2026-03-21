@@ -188,8 +188,8 @@ func TestRunChannel_InitializeError(t *testing.T) {
 	if rpcErr.Code != protocol.ErrCodeNotReady {
 		t.Errorf("code = %d, want %d (ErrCodeNotReady)", rpcErr.Code, protocol.ErrCodeNotReady)
 	}
-	if rpcErr.Message != "init failed" {
-		t.Errorf("message = %q, want %q", rpcErr.Message, "init failed")
+	if rpcErr.Message != "channel init: init failed" {
+		t.Errorf("message = %q, want %q", rpcErr.Message, "channel init: init failed")
 	}
 
 	fk.Shutdown()

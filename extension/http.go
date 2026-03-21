@@ -31,23 +31,10 @@ type HTTPExtension interface {
 // handles the initialize/shutdown lifecycle and dispatches http_request
 // requests to the provided implementation. This function blocks until the
 // host closes stdin, sends "shutdown", or an OS signal is received.
+//
+// This is a convenience wrapper around [Run] with [WithHTTP].
 func RunHTTP(ext HTTPExtension, opts ...Option) error {
-	ctx, cancel, transport, emitter := startRun(opts)
-	defer cancel()
-
-	d := &dispatcher{
-		transport: transport,
-		emitter:   emitter,
-		onInitialize: func(params protocol.InitializeParams) (*protocol.Registrations, error) {
-			return ext.Initialize(emitter, params.Config, params.ExtensionRoot)
-		},
-		onMethod: func(ctx context.Context, req *protocol.Request) error {
-			return dispatchHTTP(ctx, transport, ext, req)
-		},
-		onShutdown: ext.Shutdown,
-	}
-
-	return d.run(ctx)
+	return Run([]RunOption{WithHTTP(ext)}, opts...)
 }
 
 func dispatchHTTP(ctx context.Context, t *jsonrpc.Transport, ext HTTPExtension, req *protocol.Request) error {
