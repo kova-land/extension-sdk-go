@@ -33,23 +33,10 @@ type TTSExtension interface {
 // the initialize/shutdown lifecycle and dispatches TTS-specific methods to
 // the provided implementation. This function blocks until the host closes
 // stdin, sends "shutdown", or an OS signal is received.
+//
+// This is a convenience wrapper around [Run] with [WithTTS].
 func RunTTS(ext TTSExtension, opts ...Option) error {
-	ctx, cancel, transport, emitter := startRun(opts)
-	defer cancel()
-
-	d := &dispatcher{
-		transport: transport,
-		emitter:   emitter,
-		onInitialize: func(params protocol.InitializeParams) (*protocol.Registrations, error) {
-			return ext.Initialize(emitter, params.Config, params.ExtensionRoot)
-		},
-		onMethod: func(ctx context.Context, req *protocol.Request) error {
-			return dispatchTTS(ctx, transport, ext, req)
-		},
-		onShutdown: ext.Shutdown,
-	}
-
-	return d.run(ctx)
+	return Run([]RunOption{WithTTS(ext)}, opts...)
 }
 
 func dispatchTTS(ctx context.Context, t *jsonrpc.Transport, ext TTSExtension, req *protocol.Request) error {

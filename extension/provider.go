@@ -41,26 +41,10 @@ type ProviderExtension interface {
 // methods to the provided implementation. The buffer size defaults to 16 MB
 // to accommodate large conversation histories. This function blocks until the
 // host closes stdin, sends "shutdown", or an OS signal is received.
+//
+// This is a convenience wrapper around [Run] with [WithProvider].
 func RunProvider(ext ProviderExtension, opts ...Option) error {
-	// Default to large buffer for provider extensions.
-	opts = append([]Option{WithBufferSize(jsonrpc.LargeBufferSize)}, opts...)
-
-	ctx, cancel, transport, emitter := startRun(opts)
-	defer cancel()
-
-	d := &dispatcher{
-		transport: transport,
-		emitter:   emitter,
-		onInitialize: func(params protocol.InitializeParams) (*protocol.Registrations, error) {
-			return ext.Initialize(emitter, params.Config, params.ExtensionRoot)
-		},
-		onMethod: func(ctx context.Context, req *protocol.Request) error {
-			return dispatchProvider(ctx, transport, ext, req)
-		},
-		onShutdown: ext.Shutdown,
-	}
-
-	return d.run(ctx)
+	return Run([]RunOption{WithProvider(ext)}, opts...)
 }
 
 func dispatchProvider(ctx context.Context, t *jsonrpc.Transport, ext ProviderExtension, req *protocol.Request) error {
