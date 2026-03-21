@@ -140,6 +140,12 @@
           "additionalProperties": false
         }
       }
+    },
+    "is_slash_command_response": {
+      "type": "boolean"
+    },
+    "interaction_id": {
+      "type": "string"
     }
   },
   "title": "ChannelSendParams",
