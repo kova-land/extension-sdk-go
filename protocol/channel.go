@@ -31,6 +31,22 @@ type ChannelMessageParams struct {
 	// are in flight in the same channel.
 	InteractionID string `json:"interaction_id,omitempty"`
 
+	// Explicit indicates the message explicitly addresses the bot (e.g. via
+	// mention, reply to bot, or platform-specific trigger). When false, the
+	// message was ambient (the bot saw it in a channel but was not addressed).
+	Explicit bool `json:"explicit,omitempty"`
+	// DirectMessage indicates the message was sent as a direct/private message
+	// rather than in a channel or group conversation.
+	DirectMessage bool `json:"direct_message,omitempty"`
+	// Thread indicates the message is part of a thread (reply chain).
+	Thread bool `json:"thread,omitempty"`
+	// ThreadID is the platform-specific identifier of the parent thread or
+	// conversation thread. Empty when the message is not in a thread.
+	ThreadID string `json:"thread_id,omitempty"`
+	// ReplyToID is the platform-specific identifier of the message being
+	// replied to. Empty when the message is not a reply.
+	ReplyToID string `json:"reply_to_id,omitempty"`
+
 	// Images holds inbound image attachments (base64-encoded in JSON via []byte).
 	// Extensions that support receiving images should populate this from their
 	// platform's attachment mechanism.

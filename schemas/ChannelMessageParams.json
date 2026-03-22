@@ -25,6 +25,21 @@
     "interaction_id": {
       "type": "string"
     },
+    "explicit": {
+      "type": "boolean"
+    },
+    "direct_message": {
+      "type": "boolean"
+    },
+    "thread": {
+      "type": "boolean"
+    },
+    "thread_id": {
+      "type": "string"
+    },
+    "reply_to_id": {
+      "type": "string"
+    },
     "images": {
       "type": [
         "null",
