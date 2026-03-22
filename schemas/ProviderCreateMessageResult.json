@@ -53,6 +53,12 @@
     },
     "output_tokens": {
       "type": "integer"
+    },
+    "cache_read_tokens": {
+      "type": "integer"
+    },
+    "cache_create_tokens": {
+      "type": "integer"
     }
   },
   "title": "ProviderCreateMessageResult",
