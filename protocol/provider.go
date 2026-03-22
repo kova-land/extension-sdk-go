@@ -61,6 +61,10 @@ type ProviderCreateMessageResult struct {
 	InputTokens int64 `json:"input_tokens,omitempty"`
 	// OutputTokens is the number of output tokens generated.
 	OutputTokens int64 `json:"output_tokens,omitempty"`
+	// CacheReadTokens is the number of input tokens read from the prompt cache.
+	CacheReadTokens int64 `json:"cache_read_tokens,omitempty"`
+	// CacheCreateTokens is the number of input tokens written to the prompt cache.
+	CacheCreateTokens int64 `json:"cache_create_tokens,omitempty"`
 }
 
 // StreamChunkParams is the payload for a "stream_chunk" notification.
