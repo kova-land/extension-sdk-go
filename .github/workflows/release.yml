@@ -116,6 +116,7 @@ jobs:
         uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
+          cache: true
 
       - name: Validate module
         if: steps.bump.outputs.skip != 'true'
