@@ -31,6 +31,15 @@
         "supports_typing": {
           "type": "boolean"
         },
+        "supports_threads": {
+          "type": "boolean"
+        },
+        "supports_dms": {
+          "type": "boolean"
+        },
+        "supports_mentions": {
+          "type": "boolean"
+        },
         "max_message_len": {
           "type": "integer"
         }
