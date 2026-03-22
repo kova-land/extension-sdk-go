@@ -205,6 +205,9 @@ type ChannelCapabilities struct {
 	SupportsButtons   bool `json:"supports_buttons,omitempty"`
 	SupportsModals    bool `json:"supports_modals,omitempty"`
 	SupportsTyping    bool `json:"supports_typing,omitempty"`
+	SupportsThreads   bool `json:"supports_threads,omitempty"`
+	SupportsDMs       bool `json:"supports_dms,omitempty"`
+	SupportsMentions  bool `json:"supports_mentions,omitempty"`
 	// MaxMessageLen is the platform's maximum message length. 0 means unlimited.
 	MaxMessageLen int `json:"max_message_len,omitempty"`
 }
