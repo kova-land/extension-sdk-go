@@ -56,6 +56,13 @@ const (
 	MethodTTSVoices     = "tts_voices"
 )
 
+// Method names for kova -> extension requests (voice).
+const (
+	MethodVoiceJoin   = "voice_join"
+	MethodVoiceLeave  = "voice_leave"
+	MethodVoiceStream = "voice_stream"
+)
+
 // Notification methods sent by the extension (extension -> kova, no response expected).
 const (
 	NotificationLog            = "log"
@@ -93,4 +100,5 @@ const (
 	ErrCodeHookFailed     = -32020
 	ErrCodeHTTPFailed     = -32021
 	ErrCodeServiceFailed  = -32022
+	ErrCodeVoiceFailed    = -32030
 )
