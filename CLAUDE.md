@@ -52,6 +52,27 @@ Extensions implement one of: `ToolExtension`, `ChannelExtension`, `ProviderExten
 - `FakeKova` test harness simulates the kova host over in-memory pipes for unit testing extensions
 - `Emitter` is passed during `Initialize` for sending notifications (channel messages, logs) back to kova
 
+## Protocol Design Rules
+
+### Params-Capabilities Symmetry
+
+When adding fields to `ChannelMessageParams` that describe platform-specific behavior (threads, DMs, mentions, etc.), always add a corresponding `Supports*` field to `ChannelCapabilities`. This ensures:
+
+1. Extensions declare what their platform supports (capabilities)
+2. Extensions send what actually happened in each message (params)
+3. Kova core can validate and route based on declared capabilities
+4. No implicit assumptions about what a platform can do
+
+**Pattern:**
+
+| `ChannelMessageParams` field | `ChannelCapabilities` field |
+|------------------------------|----------------------------|
+| `Thread` (bool) | `SupportsThreads` (bool) |
+| `DirectMessage` (bool) | `SupportsDMs` (bool) |
+| `Explicit` (bool) | `SupportsMentions` (bool) |
+
+**Why:** If params exist without capabilities, kova cannot distinguish "platform doesn't support threads" from "extension forgot to set the field." Both produce `Thread: false`, but the meaning is different. Capabilities make the distinction explicit.
+
 ## Relationship to Kova
 
 - Protocol types mirror `kova/internal/extension/bridge/protocol.go` and must stay in sync
