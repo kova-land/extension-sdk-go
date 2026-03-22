@@ -4,14 +4,10 @@ package protocol
 // The extension should join the specified voice channel and begin
 // preparing to send/receive audio.
 type VoiceJoinParams struct {
-	// GuildID is the guild (server) containing the voice channel.
-	GuildID string `json:"guild_id"`
 	// ChannelID is the voice channel to join.
 	ChannelID string `json:"channel_id"`
-	// Mute controls whether the bot joins muted. Defaults to false.
-	Mute bool `json:"mute,omitempty"`
-	// Deaf controls whether the bot joins deafened. Defaults to false.
-	Deaf bool `json:"deaf,omitempty"`
+	// Options are platform-specific join options (e.g., mute, deaf for Discord).
+	Options map[string]any `json:"options,omitempty"`
 }
 
 // VoiceJoinResult is the response for a "voice_join" request.
@@ -23,10 +19,10 @@ type VoiceJoinResult struct {
 }
 
 // VoiceLeaveParams holds the payload for a "voice_leave" request.
-// The extension should disconnect from the voice channel in the given guild.
+// The extension should disconnect from the voice channel identified by ChannelID.
 type VoiceLeaveParams struct {
-	// GuildID is the guild whose voice channel to leave.
-	GuildID string `json:"guild_id"`
+	// ChannelID is the voice channel to leave.
+	ChannelID string `json:"channel_id"`
 }
 
 // VoiceLeaveResult is the response for a "voice_leave" request.
@@ -38,19 +34,28 @@ type VoiceLeaveResult struct {
 }
 
 // VoiceStreamParams holds the payload for a "voice_stream" request.
-// Audio is sent as pre-encoded Opus frames (base64-encoded in JSON).
-// Each frame should be a single Opus packet at 48kHz, stereo, 20ms frame size.
+// Audio is sent as a list of encoded frames; the encoding is indicated by Format.
 type VoiceStreamParams struct {
-	// GuildID identifies which voice connection to stream to.
-	GuildID string `json:"guild_id"`
-	// OpusFrames is a list of base64-encoded Opus audio frames to send.
-	// Each entry is one Opus packet. The extension sends them sequentially
-	// to the voice connection's OpusSend channel.
-	OpusFrames [][]byte `json:"opus_frames"`
+	// ChannelID identifies which voice connection to stream to.
+	ChannelID string `json:"channel_id"`
+	// AudioData is the audio payload as a list of encoded frames.
+	// The encoding depends on Format.
+	AudioData [][]byte `json:"audio_data"`
+	// Format indicates the audio encoding (e.g., "opus", "pcm", "mp3").
+	// Extensions declare their supported codec via capabilities.
+	Format string `json:"format,omitempty"`
+	// SampleRate is the audio sample rate in Hz (e.g., 48000).
+	// Optional — defaults to the platform's requirement.
+	SampleRate int `json:"sample_rate,omitempty"`
+	// Channels is the number of audio channels: 1 for mono, 2 for stereo.
+	// Optional — defaults to the platform's requirement.
+	Channels int `json:"channels,omitempty"`
 }
 
 // VoiceStreamResult is the response for a "voice_stream" request.
 type VoiceStreamResult struct {
-	// FramesSent is the number of Opus frames successfully sent.
+	// FramesSent is the number of audio frames successfully sent.
 	FramesSent int `json:"frames_sent"`
+	// Error is a human-readable error message if any frames failed to send.
+	Error string `json:"error,omitempty"`
 }
