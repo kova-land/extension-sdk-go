@@ -15,7 +15,11 @@ type InitializeParams struct {
 
 // InitializeResult is the response payload for the "initialize" request.
 type InitializeResult struct {
-	Registrations Registrations `json:"registrations"`
+	// ProtocolVersion is the extension protocol version this extension
+	// implements (e.g. "0.5"). When set, kova validates compatibility.
+	// Omit or leave empty to skip version negotiation.
+	ProtocolVersion string        `json:"protocol_version,omitempty"`
+	Registrations   Registrations `json:"registrations"`
 }
 
 // Registrations holds all integration points an extension declares during

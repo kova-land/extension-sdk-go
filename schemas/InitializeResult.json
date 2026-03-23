@@ -1,6 +1,9 @@
 {
   "type": "object",
   "properties": {
+    "protocol_version": {
+      "type": "string"
+    },
     "registrations": {
       "type": "object",
       "properties": {
