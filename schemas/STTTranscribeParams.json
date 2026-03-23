@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "audio_base64": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string"
+    },
+    "sample_rate": {
+      "type": "integer"
+    },
+    "channels": {
+      "type": "integer"
+    },
+    "language": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "channel_id": {
+      "type": "string"
+    }
+  },
+  "title": "STTTranscribeParams",
+  "required": [
+    "audio_base64",
+    "format"
+  ],
+  "additionalProperties": false
+}

@@ -16,6 +16,7 @@ type compositeConfig struct {
 	provider ProviderExtension
 	tool     ToolExtension
 	tts      TTSExtension
+	stt      STTExtension
 	hook     HookExtension
 	http     HTTPExtension
 	service  ServiceExtension
@@ -39,6 +40,11 @@ func WithTool(ext ToolExtension) RunOption {
 // WithTTS registers a TTS extension handler.
 func WithTTS(ext TTSExtension) RunOption {
 	return func(c *compositeConfig) { c.tts = ext }
+}
+
+// WithSTT registers an STT extension handler.
+func WithSTT(ext STTExtension) RunOption {
+	return func(c *compositeConfig) { c.stt = ext }
 }
 
 // WithHook registers a hook extension handler.
@@ -133,6 +139,13 @@ func compositeInitialize(cc *compositeConfig, emitter *Emitter, params protocol.
 		}
 		mergeRegistrations(merged, regs)
 	}
+	if cc.stt != nil {
+		regs, err := cc.stt.Initialize(emitter, params.Config, params.ExtensionRoot)
+		if err != nil {
+			return nil, fmt.Errorf("stt init: %w", err)
+		}
+		mergeRegistrations(merged, regs)
+	}
 	if cc.hook != nil {
 		regs, err := cc.hook.Initialize(emitter, params.Config, params.ExtensionRoot)
 		if err != nil {
@@ -169,6 +182,7 @@ func mergeRegistrations(dst, src *protocol.Registrations) {
 	dst.Services = append(dst.Services, src.Services...)
 	dst.Providers = append(dst.Providers, src.Providers...)
 	dst.TTSProviders = append(dst.TTSProviders, src.TTSProviders...)
+	dst.STTProviders = append(dst.STTProviders, src.STTProviders...)
 	dst.CLICommands = append(dst.CLICommands, src.CLICommands...)
 }
 
@@ -201,6 +215,12 @@ func compositeDispatch(ctx context.Context, t *jsonrpc.Transport, cc *compositeC
 	case protocol.MethodTTSSynthesize, protocol.MethodTTSVoices:
 		if cc.tts != nil {
 			return dispatchTTS(ctx, t, cc.tts, req)
+		}
+
+	// STT methods
+	case protocol.MethodSTTTranscribe, protocol.MethodSTTModels:
+		if cc.stt != nil {
+			return dispatchSTT(ctx, t, cc.stt, req)
 		}
 
 	// Hook methods
@@ -247,6 +267,11 @@ func compositeShutdown(cc *compositeConfig) error {
 	if cc.tts != nil {
 		if err := cc.tts.Shutdown(); err != nil {
 			errs = append(errs, fmt.Errorf("tts shutdown: %w", err))
+		}
+	}
+	if cc.stt != nil {
+		if err := cc.stt.Shutdown(); err != nil {
+			errs = append(errs, fmt.Errorf("stt shutdown: %w", err))
 		}
 	}
 	if cc.hook != nil {

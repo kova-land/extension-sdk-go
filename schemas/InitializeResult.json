@@ -149,6 +149,27 @@
             "additionalProperties": false
           }
         },
+        "stt_providers": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
         "cli_commands": {
           "type": [
             "null",
