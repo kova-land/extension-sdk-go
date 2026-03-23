@@ -40,8 +40,47 @@
         "supports_mentions": {
           "type": "boolean"
         },
+        "supports_markdown": {
+          "type": "boolean"
+        },
+        "supports_native_commands": {
+          "type": "boolean"
+        },
+        "supports_text_commands": {
+          "type": "boolean"
+        },
         "max_message_len": {
           "type": "integer"
+        },
+        "max_file_size": {
+          "type": "integer"
+        },
+        "audio_formats": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "image_formats": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "formatting_hints": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [

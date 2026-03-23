@@ -208,8 +208,30 @@ type ChannelCapabilities struct {
 	SupportsThreads   bool `json:"supports_threads,omitempty"`
 	SupportsDMs       bool `json:"supports_dms,omitempty"`
 	SupportsMentions  bool `json:"supports_mentions,omitempty"`
+	// SupportsMarkdown indicates the platform renders markdown formatting in messages.
+	SupportsMarkdown bool `json:"supports_markdown,omitempty"`
+	// SupportsNativeCommands indicates the platform has native slash-command support
+	// (e.g. Discord interactions).
+	SupportsNativeCommands bool `json:"supports_native_commands,omitempty"`
+	// SupportsTextCommands indicates the platform supports text-prefix commands
+	// (e.g. /help sent as a plain message).
+	SupportsTextCommands bool `json:"supports_text_commands,omitempty"`
 	// MaxMessageLen is the platform's maximum message length. 0 means unlimited.
 	MaxMessageLen int `json:"max_message_len,omitempty"`
+	// MaxFileSize is the platform's maximum attachment size in bytes. 0 means
+	// unlimited or unknown.
+	MaxFileSize int64 `json:"max_file_size,omitempty"`
+	// AudioFormats lists the audio container/codec formats the platform accepts
+	// (e.g. ["opus", "mp3", "ogg"]). Empty means any format is accepted or audio
+	// is not supported.
+	AudioFormats []string `json:"audio_formats,omitempty"`
+	// ImageFormats lists the image formats the platform accepts (e.g. ["png",
+	// "jpg", "webp", "gif"]). Empty means any format is accepted or images are
+	// not supported.
+	ImageFormats []string `json:"image_formats,omitempty"`
+	// FormattingHints provides platform-specific formatting guidance for the agent
+	// (e.g. ["no_bold", "max_embeds:1"]). Empty means no special hints.
+	FormattingHints []string `json:"formatting_hints,omitempty"`
 }
 
 // ChannelCapabilitiesParams is sent by kova to query the extension's platform
