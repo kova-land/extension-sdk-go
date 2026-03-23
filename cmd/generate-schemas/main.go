@@ -81,6 +81,12 @@ func main() {
 		protocol.TTSSynthesizeResult{},
 		protocol.TTSVoicesResult{},
 		protocol.TTSVoice{},
+		protocol.STTProviderDef{},
+		protocol.STTTranscribeParams{},
+		protocol.STTTranscribeResult{},
+		protocol.STTSegment{},
+		protocol.STTModelsResult{},
+		protocol.STTModel{},
 		protocol.LogParams{},
 	}
 

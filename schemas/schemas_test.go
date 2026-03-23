@@ -70,6 +70,12 @@ func allProtocolTypes() map[string]reflect.Type {
 		"TTSSynthesizeResult":         reflect.TypeOf(protocol.TTSSynthesizeResult{}),
 		"TTSVoicesResult":             reflect.TypeOf(protocol.TTSVoicesResult{}),
 		"TTSVoice":                    reflect.TypeOf(protocol.TTSVoice{}),
+		"STTProviderDef":              reflect.TypeOf(protocol.STTProviderDef{}),
+		"STTTranscribeParams":         reflect.TypeOf(protocol.STTTranscribeParams{}),
+		"STTTranscribeResult":         reflect.TypeOf(protocol.STTTranscribeResult{}),
+		"STTSegment":                  reflect.TypeOf(protocol.STTSegment{}),
+		"STTModelsResult":             reflect.TypeOf(protocol.STTModelsResult{}),
+		"STTModel":                    reflect.TypeOf(protocol.STTModel{}),
 		"LogParams":                   reflect.TypeOf(protocol.LogParams{}),
 	}
 }

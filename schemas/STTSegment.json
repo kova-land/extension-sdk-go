@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "start": {
+      "type": "number"
+    },
+    "end": {
+      "type": "number"
+    },
+    "text": {
+      "type": "string"
+    }
+  },
+  "title": "STTSegment",
+  "required": [
+    "start",
+    "end",
+    "text"
+  ],
+  "additionalProperties": false
+}

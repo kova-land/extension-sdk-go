@@ -56,6 +56,12 @@ const (
 	MethodTTSVoices     = "tts_voices"
 )
 
+// Method names for kova -> extension requests (STT).
+const (
+	MethodSTTTranscribe = "stt_transcribe"
+	MethodSTTModels     = "stt_models"
+)
+
 // Method names for kova -> extension requests (voice).
 const (
 	MethodVoiceJoin   = "voice_join"
@@ -97,6 +103,7 @@ const (
 	ErrCodeModelNotFound  = -32012
 	ErrCodeTTSFailed      = -32013
 	ErrCodeVoiceNotFound  = -32014
+	ErrCodeSTTFailed      = -32015
 	ErrCodeHookFailed     = -32020
 	ErrCodeHTTPFailed     = -32021
 	ErrCodeServiceFailed  = -32022

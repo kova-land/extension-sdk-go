@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "number"
+    },
+    "segments": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "number"
+          },
+          "end": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "title": "STTTranscribeResult",
+  "required": [
+    "text"
+  ],
+  "additionalProperties": false
+}

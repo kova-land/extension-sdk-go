@@ -31,6 +31,7 @@ type Registrations struct {
 	Services     []ServiceDef     `json:"services,omitempty"`
 	Providers    []ProviderDef    `json:"providers,omitempty"`
 	TTSProviders []TTSProviderDef `json:"tts_providers,omitempty"`
+	STTProviders []STTProviderDef `json:"stt_providers,omitempty"`
 	CLICommands  []CLIDef         `json:"cli_commands,omitempty"`
 }
 
