@@ -19,7 +19,7 @@ jobs:
     # Skip commits from this workflow to avoid infinite loops
     if: "!startsWith(github.event.head_commit.message, 'chore: update generated schemas')"
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set up Go
         uses: actions/setup-go@v6
